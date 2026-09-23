@@ -1,5 +1,6 @@
 require("dotenv").config();
 
+const userRoutes = require("./routes/user.routes");
 const express = require("express");
 const cors = require("cors");
 const supabase = require("./config/supabase");
@@ -39,6 +40,7 @@ app.get("/test-db", async (req, res) => {
 });
 
 app.use("/api/auth", authRoutes);
+app.use("/api/users", userRoutes);
 
 app.listen(PORT, () => {
   console.log(`School Command Center backend running on port ${PORT}`);
