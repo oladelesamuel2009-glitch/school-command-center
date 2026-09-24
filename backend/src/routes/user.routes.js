@@ -6,7 +6,16 @@ const {
   createStaffInvitation
 } = require("../services/user.service");
 
+const {
+  acceptStaffInvitation
+} = require("../services/invitations.service");
+
 const router = express.Router();
+
+
+// ========================================
+// CREATE STAFF INVITATION
+// ========================================
 
 router.post(
   "/invitations",
@@ -23,10 +32,6 @@ router.post(
         department,
         employmentDate
       } = req.body;
-
-      // ----------------------------------------
-      // Basic validation
-      // ----------------------------------------
 
       if (
         !email ||
@@ -57,6 +62,7 @@ router.post(
         message: "Staff invitation created successfully",
         data: result
       });
+
     } catch (error) {
       res.status(400).json({
         message: "Failed to create staff invitation",
@@ -65,5 +71,45 @@ router.post(
     }
   }
 );
+
+
+// ========================================
+// ACCEPT STAFF INVITATION
+// ========================================
+
+router.post(
+  "/invitations/accept",
+  async (req, res) => {
+    try {
+      const {
+        token,
+        password
+      } = req.body;
+
+      if (!token || !password) {
+        return res.status(400).json({
+          message: "Token and password are required"
+        });
+      }
+
+      const result = await acceptStaffInvitation({
+        token,
+        password
+      });
+
+      res.status(200).json({
+        message: "Invitation accepted successfully",
+        data: result
+      });
+
+    } catch (error) {
+      res.status(400).json({
+        message: "Failed to accept invitation",
+        error: error.message
+      });
+    }
+  }
+);
+
 
 module.exports = router;
