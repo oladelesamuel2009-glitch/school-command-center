@@ -1,5 +1,13 @@
 require("dotenv").config();
 
+const subjectRoutes = require("./routes/subject.routes");
+const classArmSubjectRoutes =
+  require("./routes/class-arm-subject.routes");
+const classArmRoutes = require("./routes/class-arm.routes");
+const classRoutes = require("./routes/class.routes");
+const termRoutes = require("./routes/term.routes");
+const academicSessionRoutes =
+  require("./routes/academic-session.routes");
 const userRoutes = require("./routes/user.routes");
 const express = require("express");
 const cors = require("cors");
@@ -41,7 +49,15 @@ app.get("/test-db", async (req, res) => {
 
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
-
+app.use(
+  "/api/academic-sessions",
+  academicSessionRoutes
+);
+app.use("/api/", termRoutes);
+app.use("/api/classes", classRoutes);
+app.use("/api", classArmRoutes);
+app.use("/api", classArmSubjectRoutes);
+app.use("/api/subjects", subjectRoutes);
 app.listen(PORT, () => {
   console.log(`School Command Center backend running on port ${PORT}`);
 });

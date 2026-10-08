@@ -46,11 +46,14 @@ export default function DashboardPage() {
         </article>
 
         <article className="panel muted-panel">
-          <p className="eyebrow">Next feature</p>
-          <h2>School Setup</h2>
+          <p className="eyebrow">School Setup</p>
+          <h2>Configure your school</h2>
           <p className="subtext">
-            Sessions, terms, classes, class arms and subjects will come next.
+            Manage sessions, terms, classes, class arms and subjects.
           </p>
+          <Link className="button link-button" to="/school-setup">
+            Open School Setup
+          </Link>
         </article>
       </section>
     </main>
